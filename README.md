@@ -22,6 +22,9 @@ I've never programmed in Lua. This is my first project that I created in under 2
 12. Time for music - sound effects are made with [bfxr](https://www.bfxr.net/). Music is from random copy-right free websites.
 13. Final.
 
+# Why "TriangleYAY"
+Because all you do is collecting triangles that are not triangles and at the end you can hear "yaaay" sound.
+
 # Instruction
 - Use arrow keys or WASD to move.
 - Collect as many triangles as you can to get higher score.
