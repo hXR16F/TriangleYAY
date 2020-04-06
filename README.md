@@ -7,7 +7,7 @@
 </p>
 
 # About - process of creating **TriangleYAY**
-I've never programmed in Lua. This is my first project and this is how I made it:
+I've never programmed in Lua. This is my first project that I created in under 24H and this is how I made it:
 1. Learning basics of Lua and how it works in few minutes.
 2. Learning how LÖVE. works - printing some random text on screen (examples from LÖVE homepage). It's similar to python so I've spent about 10-30 minutes.
 3. Learning commands of LÖVE. This part was most time-drainful - few hours. I picked some commands that I will use.
