@@ -22,6 +22,10 @@ I've never programmed in Lua. This is my first project that I created in under 2
 12. Time for music - sound effects are made with [bfxr](https://www.bfxr.net/). Music is from random copy-right free websites.
 13. Final.
 
+# Instruction
+- Use arrow keys or WASD to move.
+- Collect as many triangles as you can to get higher score.
+
 # Donate
 If you support my work or like my projects, you can donate me some money. Thank you 💙\
 BTC: `bc1q9trutvumrfuwrdwj377xd7u2flyp527j6t6qh9`
