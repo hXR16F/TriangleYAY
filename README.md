@@ -10,7 +10,7 @@
 I've never programmed in Lua. This is my first project that I created in under 24H and this is how I made it:
 1. Learning basics of Lua and how it works in few minutes.
 2. Learning how LÖVE. works - printing some random text on screen (examples from LÖVE homepage). It's similar to python so I've spent about 10-30 minutes.
-3. Learning commands of LÖVE. This part was most time-drainful - few hours. I picked some commands that I will use.
+3. Learning commands/functions of LÖVE (similar to AutoIt). This part was most time-drainful - few hours. I picked some commands that I will use.
 4. Trying to display something different than text - worked at first try.
 5. Understanding how to receive keyboard input - few minutes.
 6. Added some window collisions - pretty easy, just used WINDOW_WIDTH and WINDOW_HEIGHT variables - 10 minutes of coding.
