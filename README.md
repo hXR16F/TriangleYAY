@@ -16,7 +16,7 @@ I've never programmed in Lua. This is my first project that I created in under 2
 6. Added some window collisions - pretty easy, just used WINDOW_WIDTH and WINDOW_HEIGHT variables - 10 minutes of coding.
 7. Now it's part for more than 1 object - I added a "triangle" (it's a circle with 3 segments lol). Took me few minutes.
 8. Understanding how collisions works on different objects - about 30-60 minutes.
-9. I wanted to rotate "triangles" (circles) but it's probably impossible - wasted 15 minutes.
+9. I wanted to rotate "triangles" (circles) but it's probably impossible (yeah, I realised I can do it with `love.graphics.triangle`) - wasted 15 minutes.
 10. Now the hardest part - creating multiple triangles and detecting collisions from them. I've spent about 4 hours to do it.
 11. Adding some effects/shaders. GLSL syntax is more akin to C/C++ so... next few hours. Screen shaking was really easy to apply.
 12. Time for music - sound effects are made with [bfxr](https://www.bfxr.net/). Music is from random copy-right free websites.
