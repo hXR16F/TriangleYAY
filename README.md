@@ -30,5 +30,4 @@ Because all you do is collecting triangles that are not triangles and at the end
 - Collect as many triangles as you can to get higher score.
 
 # Donate
-If you support my work or like my projects, you can donate me some money. Thank you 💙\
-BTC: `1GZRqMvfAhsHbWAJUKf9EruBPNKqwGAPFU`
+If you support my work or like my projects, [you can donate me some money](https://github.com/hXR16F/donate/blob/master/README.md). Thank you 💙
