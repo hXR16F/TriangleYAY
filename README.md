@@ -31,4 +31,4 @@ Because all you do is collecting triangles that are not triangles and at the end
 
 # Donate
 If you support my work or like my projects, you can donate me some money. Thank you 💙\
-BTC: `bc1q9trutvumrfuwrdwj377xd7u2flyp527j6t6qh9`
+BTC: `1GZRqMvfAhsHbWAJUKf9EruBPNKqwGAPFU`
