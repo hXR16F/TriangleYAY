@@ -1,5 +1,5 @@
 <p align="center">
-	<b>TriangleYAY</b>
+	<b>TriangleYAY - <a href="https://www.youtube.com/watch?v=GFGtRtyIXpM">YouTube<a/></b>
 	<br>
   <i>Simple game written in <a href="https://love2d.org/">LÖVE</a> 2D game engine.</i>
 	<br><br><br>
