@@ -17,6 +17,8 @@ player.position_y = WINDOW_HEIGHT / 2
 player.radius = 12
 player.speed = 300
 
+num_circles = 6
+
 -- Creating triangle (circle)
 local circles = {}
 function create_circle(x, y, r, s)
@@ -25,7 +27,11 @@ function create_circle(x, y, r, s)
 		y = y,
 
 		r = r,
-		s = 3
+		s = 3,
+
+		auto = {mode = false, xd = 0, yd = 0},
+
+		run_timer = 0,
 	}
 	-- Drawing triangle
 	function circle.draw()
@@ -57,14 +63,16 @@ function love.load()
 		vsync = true
 	})
 	love.window.setTitle("TriangleYAY")
-
+	love.mouse.setVisible(false)
+	love.mouse.setPosition(player.position_x, player.position_y)
 	circles_num = 0
 	points = 0
 	points_per_second = 0
 	game_over = 0
 	first = 0
 	gameplay_time = 60
-
+	run_max = 0.8
+	run_timer = 0
 	-- GLSL shaders
 	shader_objects = love.graphics.newShader [[
 		extern number time;
@@ -111,32 +119,91 @@ function love.load()
 	src2 = love.audio.newSource("music.ogg", "stream")
 	src3 = love.audio.newSource("game_over.wav", "static")
 	src4 = love.audio.newSource("win.wav", "static")
-	src1:setVolume(1)
-	src2:setVolume(0.5)
-	src3:setVolume(1)
-	src4:setVolume(1)
+	src1:setVolume(0.5)
+	src2:setVolume(0.3)
+	src3:setVolume(0.5)
+	src4:setVolume(0.5)
 	src2:play()
 
 	start_time = os.time()
+
+	-- Set the random seed for reproducibility
+	math.randomseed(os.time())
+end
+
+function love.mousemoved(mouse_x, mouse_y, dx, dy, istouch)
+    -- This function is called whenever the mouse moves.
+	player.position_x = mouse_x%WINDOW_WIDTH
+	player.position_y = mouse_y%WINDOW_HEIGHT
+
+end
+
+function checkBoundaries(i)
+	if circles[i].x < 0 then 
+		circles[i].x = WINDOW_WIDTH
+	elseif circles[i].x > WINDOW_WIDTH then
+		circles[i].x = 0
+	end
+	if circles[i].y < 0 then
+		circles[i].y = WINDOW_HEIGHT
+	elseif circles[i].y > WINDOW_HEIGHT then
+		circles[i].y = 0
+	end
+end
+
+function autoEscape(dt)
+	directions = {
+		x = {-1, 0, 1},
+		y = {-1, 0, 1}
+	}
+	local scale = 10
+	local min_dist = 60
+	local xmax = {dist = 0, x = 0, y = 0}
+	for i = #circles, 1, -1 do
+		if circles[i].auto.mode then 
+			local auto = circles[i].auto
+			circles[i].x = circles[i].x + auto.xd
+			circles[i].y = circles[i].y + auto.yd
+			circles[i].run_timer = circles[i].run_timer + dt
+			if circles[i].run_timer > run_max then
+				circles[i].auto.mode = false
+				circles[i].run_timer = 0
+			end
+		elseif math.sqrt((circles[i].x - player.position_x)^2 + (circles[i].y - player.position_y)^2) < min_dist then
+			for x, _ in ipairs(directions.x) do
+				for y, _ in ipairs(directions.y) do
+					local new_x = circles[i].x + x * scale
+					local new_y = circles[i].y + y * scale
+					local dist = math.sqrt((new_x - player.position_x)^2 + (new_y - player.position_y)^2)
+					if dist > xmax.dist then
+						xmax.dist = dist
+						xmax.x = new_x
+						xmax.y = new_y
+						circles[i].auto.xd = x
+						circles[i].auto.yd = y
+					end
+				end
+			end
+			circles[i].x = xmax.x
+			circles[i].y = xmax.y
+			circles[i].auto.mode = true 
+		end
+		checkBoundaries(i)
+	end
 end
 
 function love.update(dt)
 	fps = love.timer.getFPS()
 
-	-- Controls: WASD or arrow keys, ESC to quit
+	-- Controls: mouse, ESC to quit
 	if love.keyboard.isDown("escape") then love.event.push("quit") end
 	if game_over == 0 then
-		if love.keyboard.isDown("s") or love.keyboard.isDown("down") then player.position_y = player.position_y + (player.speed * dt) end
-		if love.keyboard.isDown("w") or love.keyboard.isDown("up") then player.position_y = player.position_y - (player.speed * dt) end
-		if love.keyboard.isDown("d") or love.keyboard.isDown("right") then player.position_x = player.position_x + (player.speed * dt) end
-		if love.keyboard.isDown("a") or love.keyboard.isDown("left") then player.position_x = player.position_x - (player.speed * dt) end
-
 		-- Generating new triangle if player catched one
-		if circles_num < 3 then
-			for i=1, (3 - circles_num) do
+		if circles_num < num_circles then
+			for i=1, (num_circles - circles_num) do
 				create_circle(love.math.random(30, WINDOW_WIDTH - 30), love.math.random(30, WINDOW_HEIGHT - 30), 18, 3)
 			end
-			circles_num = 3
+			circles_num = num_circles
 		end
 
 		-- Detecting collision between player and triangle
@@ -171,7 +238,7 @@ function love.update(dt)
 		tt = tt + dt * 1.5
 		shader_objects:send("time", tt)
 	end
-
+	autoEscape(dt)
 	-- Shake effect
 	if t < shakeDuration then
 		t = t + dt
